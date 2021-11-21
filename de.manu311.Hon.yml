@@ -1,0 +1,72 @@
+app-id: de.manu311.Hon
+runtime: org.freedesktop.Platform
+runtime-version: '21.08'
+sdk: org.freedesktop.Sdk
+command: startHoN.sh
+modules:
+  - name: gtk-2.24
+    cleanup: [
+        "/cache",
+        "/man",
+        "/share/aclocal",
+        "/share/devhelp",
+        "/include",
+        "/lib/pkgconfig",
+        "/share/gtk-doc",
+        "/share/man",
+        "/lib/*.a",
+        "*.a",
+        "*.la"
+    ]
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/gtk+/2.24/gtk+-2.24.32.tar.xz
+        sha256: b6c8a93ddda5eabe3bfee1eb39636c9a03d2a56c7b62828b359bf197943c582e
+    build-options:
+      no-debuginfo: true
+  - name: dbus-glib #required for gconf
+    sources:
+      - type: archive
+        url: https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.112.tar.gz
+        sha256: 7d550dccdfcd286e33895501829ed971eeb65c614e73aadb4a08aeef719b143a
+  - name: intltool #required by gconf
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/intltool/0.40/intltool-0.40.6.tar.bz2
+        sha256: 4d1e5f8561f09c958e303d4faa885079a5e173a61d28437d0013ff5efc9e3b64
+  - name: gconf
+    sources:
+      - type: archive
+        url: http://download.gnome.org/pub/GNOME/sources/GConf/3.2/GConf-3.2.6.tar.xz
+        sha256: 1912b91803ab09a5eed34d364bf09fe3a2a9c96751fde03a4e0cfa51a04d784c
+    config-opts:
+      - --disable-orbit
+  - name: libGlu
+    sources:
+      - type: archive
+        url: https://archive.mesa3d.org/glu/glu-9.0.2.tar.xz
+        sha256: 6e7280ff585c6a1d9dfcdf2fca489251634b3377bfc33c29e4002466a38d02d4
+#  - name: Freetype #required by harfbuzz
+#    sources:
+#      - type: archive
+#        url: https://download.savannah.gnu.org/releases/freetype/freetype-2.11.0.tar.xz
+#        sha256: 8bee39bd3968c4804b70614a0a3ad597299ad0e824bc8aad5ce8aaf48067bde7
+#  - name: harfbuzz
+#    sources:
+#      - type: archive
+#        url: https://github.com/harfbuzz/harfbuzz/releases/download/2.9.1/harfbuzz-2.9.1.tar.xz
+#        sha256: 0edcc980f526a338452180e701d6aba6323aef457b6686976a7d17ccbddc51cf
+  - name: HoN
+    buildsystem: simple
+    build-commands:
+      - install -D startHoN.sh /app/bin/startHoN.sh
+    sources:
+      - type: file
+        path: startHoN.sh
+finish-args:
+  - --device=dri
+  - --share=network
+  - --share=ipc
+  - --socket=x11
+  - --socket=pulseaudio
+  - --filesystem=~/.Heroes of Newerth

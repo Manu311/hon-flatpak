@@ -1,0 +1,7 @@
+[Flatpak Ref]
+Name=de.manu311.Hon
+Branch=stable
+Title=Heroes of Newerth
+Url=https://manu311.de/flatpak/HoN
+RuntimeRepo=https://dl.flathub.org/repo/flathub.flatpakrepo
+IsRuntime=false
