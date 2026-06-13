@@ -61,4 +61,4 @@ then echo "Appending gl_modesetting configuration to startup.cfg"
 echo 'SetSave "gl_modesetting" ""' >> ~/.Heroes\ of\ Newerth/game/startup.cfg
 fi
 
-exec "$XDG_DATA_HOME/hon-x86_64" "$*"
+exec "$XDG_DATA_HOME/launcher" "$*"
