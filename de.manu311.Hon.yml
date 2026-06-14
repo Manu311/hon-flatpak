@@ -75,11 +75,18 @@ modules:
       no-debuginfo: true
       cflags: "-Wno-error=incompatible-pointer-types -Wno-error=implicit-int"
   - name: dbus-glib #required for gconf
+    cleanup:
+      - "/include"
+      - "/lib/pkgconfig"
+      - "/share"
+      - "*.la"
     sources:
       - type: archive
         url: https://dbus.freedesktop.org/releases/dbus-glib/dbus-glib-0.112.tar.gz
         sha256: 7d550dccdfcd286e33895501829ed971eeb65c614e73aadb4a08aeef719b143a
   - name: intltool #required by gconf
+    cleanup:
+      - "*"
     sources:
       - type: archive
         url: https://download.gnome.org/sources/intltool/0.40/intltool-0.40.6.tar.bz2
@@ -123,15 +130,25 @@ modules:
     buildsystem: simple
     build-commands:
       - install -D startHoN.sh /app/bin/startHoN.sh
+      - install -D de.manu311.Hon.desktop /app/share/applications/de.manu311.Hon.desktop
+      - install -D de.manu311.Hon.metainfo.xml /app/share/metainfo/de.manu311.Hon.metainfo.xml
+      - install -D de.manu311.Hon.png /app/share/icons/hicolor/256x256/apps/de.manu311.Hon.png
     sources:
       - type: file
         path: startHoN.sh
+      - type: file
+        path: de.manu311.Hon.desktop
+      - type: file
+        path: de.manu311.Hon.metainfo.xml
+      - type: file
+        path: de.manu311.Hon.png
 finish-args:
   - --device=dri
   - --share=network
   - --share=ipc
   - --socket=x11
   - --socket=pulseaudio
-  - --socket=session-bus
+  - --talk-name=ca.desrt.dconf
+  - --talk-name=org.gnome.GConf
   - --filesystem=~/.Heroes of Newerth
   - --env=LD_LIBRARY_PATH=/app/lib
