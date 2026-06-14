@@ -2,4 +2,6 @@
 Name=de.manu311.Hon
 Branch=stable
 Title=Heroes of Newerth - Kongor Edition
+Url=https://manu311.github.io/hon-flatpak
+RuntimeRepo=https://dl.flathub.org/repo/flathub.flatpakrepo
 IsRuntime=false
