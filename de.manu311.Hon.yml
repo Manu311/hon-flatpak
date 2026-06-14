@@ -2,6 +2,7 @@ app-id: de.manu311.Hon
 runtime: org.freedesktop.Platform
 runtime-version: "24.08"
 sdk: org.freedesktop.Sdk
+branch: stable
 command: startHoN.sh
 modules:
   - name: freetype
