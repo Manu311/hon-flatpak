@@ -4,11 +4,6 @@ runtime-version: "24.08"
 sdk: org.freedesktop.Sdk
 command: startHoN.sh
 modules:
-  # - name: Freetype #required by harfbuzz
-  #   sources:
-  #     - type: archive
-  #       url: https://download.savannah.gnu.org/releases/freetype/freetype-2.11.0.tar.xz
-  #       sha256: 8bee39bd3968c4804b70614a0a3ad597299ad0e824bc8aad5ce8aaf48067bde7
   - name: freetype
     buildsystem: meson
     cleanup:
@@ -25,24 +20,6 @@ modules:
       - type: archive
         url: https://github.com/harfbuzz/harfbuzz/releases/download/3.4.0/harfbuzz-3.4.0.tar.xz
         sha256: 7158a87c4db82521fc506711f0c8864115f0292d95f7136c8812c11811cdf952
-  # - name: harfbuzz
-  #   buildsystem: meson
-  #   config-opts:
-  #     - -Dintrospection=disabled
-  #     - -Ddocs=disabled
-  #     - -Dtests=disabled
-  #     - -Dcpp_std=c++17
-  #   build-options:
-  #     cxxflags: "-std=c++17"
-  #   cleanup:
-  #     - "/include"
-  #     - "/lib/pkgconfig"
-  #     - "/share"
-  #     - "*.la"
-  #   sources:
-  #     - type: archive
-  #       url: https://github.com/harfbuzz/harfbuzz/releases/download/8.3.0/harfbuzz-8.3.0.tar.xz
-  #       sha256: 109501eaeb8bde3eadb25fab4164e993fbace29c3d775bcaa1c1e58e2f15f847
   - name: pango
     buildsystem: meson
     config-opts:
@@ -75,15 +52,6 @@ modules:
       - type: archive
         url: https://download.gnome.org/sources/gtk+/3.24/gtk%2B-3.24.12.tar.xz #3.24.36 switched build system to meson
         sha256: 1384eba5614fed160044ae0d32369e3df7b4f517b03f4b1f24d383e528f4be83
-  # - name: atk #required by launcher
-  #   buildsystem: meson
-  #   config-opts:
-  #     - -Dintrospection=false
-  #     - -Ddocs=false
-  #   sources:
-  #     - type: archive
-  #       url: https://download.gnome.org/sources/atk/2.38/atk-2.38.0.tar.xz
-  #       sha256: ac4de2a4ef4bd5665052952fe169657e65e895c5057dffb3c2a810f6191a0c36
   - name: gtk-2.24
     cleanup:
       [
@@ -130,19 +98,6 @@ modules:
       - type: archive
         url: https://archive.mesa3d.org/glu/glu-9.0.2.tar.xz
         sha256: 6e7280ff585c6a1d9dfcdf2fca489251634b3377bfc33c29e4002466a38d02d4
-  - name: HoN
-    buildsystem: simple
-    build-commands:
-      - install -D startHoN.sh /app/bin/startHoN.sh
-    sources:
-      - type: file
-        path: startHoN.sh
-      - type: file
-        path: WILLOWMAKER
-      - type: file
-        path: libHarfBuzzSharp.so
-      - type: file
-        path: libSkiaSharp.so
   - name: eudev
     cleanup:
       - "/include"
@@ -164,6 +119,13 @@ modules:
     buildsystem: simple
     build-commands:
       - ln -s /app/lib/libudev.so.1 /app/lib/libudev.so.0
+  - name: HoN
+    buildsystem: simple
+    build-commands:
+      - install -D startHoN.sh /app/bin/startHoN.sh
+    sources:
+      - type: file
+        path: startHoN.sh
 finish-args:
   - --device=dri
   - --share=network
